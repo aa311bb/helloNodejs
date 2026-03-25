@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node path-demo.js)",
+      "Bash(node os-demo.js)",
+      "Bash(npm install:*)"
+    ]
+  }
+}

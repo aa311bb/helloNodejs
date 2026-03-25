@@ -1,0 +1,44 @@
+// 导航数据 - 添加新模块只需修改这里
+export const navData = {
+  home: {
+    icon: '🏠',
+    title: '首页',
+    path: '/'
+  },
+  categories: [
+    {
+      name: '核心模块',
+      items: [
+        {
+          icon: '📁',
+          title: 'Path 路径',
+          path: '/path'
+        },
+        {
+          icon: '💻',
+          title: 'OS 系统',
+          path: '/os'
+        },
+        {
+          icon: '⚙️',
+          title: 'Process 进程',
+          path: '/process'
+        }
+      ]
+    }
+  ]
+}
+
+// 获取所有模块（用于首页卡片展示）
+export const getAllModules = () => {
+  const modules = []
+  navData.categories.forEach(category => {
+    category.items.forEach(item => {
+      modules.push({
+        ...item,
+        category: category.name
+      })
+    })
+  })
+  return modules
+}

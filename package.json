@@ -1,0 +1,26 @@
+{
+  "name": "node-learn",
+  "version": "1.0.0",
+  "description": "Learning Node.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aa311bb/helloNodejs.git"
+  },
+  "author": "Riven",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^3.4.0",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.2.0"
+  }
+}
