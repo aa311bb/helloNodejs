@@ -21,6 +21,26 @@ const routes = [
     path: '/process',
     name: 'Process',
     component: () => import('@/views/Process.vue')
+  },
+  {
+    path: '/child-process',
+    name: 'ChildProcess',
+    component: () => import('@/views/ChildProcess.vue')
+  },
+  {
+    path: '/events',
+    name: 'Events',
+    component: () => import('@/views/Events.vue')
+  },
+  {
+    path: '/util',
+    name: 'Util',
+    component: () => import('@/views/Util.vue')
+  },
+  {
+    path: '/fs',
+    name: 'Fs',
+    component: () => import('@/views/Fs.vue')
   }
 ]
 

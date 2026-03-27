@@ -23,6 +23,26 @@ export const navData = {
           icon: '⚙️',
           title: 'Process 进程',
           path: '/process'
+        },
+        {
+          icon: '👶',
+          title: 'Child Process',
+          path: '/child-process'
+        },
+        {
+          icon: '🎯',
+          title: 'Events 事件',
+          path: '/events'
+        },
+        {
+          icon: '🛠️',
+          title: 'Util 工具',
+          path: '/util'
+        },
+        {
+          icon: '📄',
+          title: 'FS 文件系统',
+          path: '/fs'
         }
       ]
     }

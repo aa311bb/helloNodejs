@@ -52,7 +52,11 @@ const modules = getAllModules()
 const moduleDescMap = {
   '/path': '处理文件和目录路径，跨平台兼容性处理',
   '/os': '获取操作系统和硬件信息，系统监控',
-  '/process': '进程信息与控制，环境变量，命令行参数'
+  '/process': '进程信息与控制，环境变量，命令行参数',
+  '/child-process': '创建子进程执行命令，多进程架构',
+  '/events': '事件驱动架构核心，发布订阅模式',
+  '/util': '实用工具函数，promisify，format，inspect',
+  '/fs': '文件系统操作，读写文件，目录管理，流式处理'
 }
 
 const getModuleDesc = (path) => moduleDescMap[path] || ''
