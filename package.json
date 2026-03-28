@@ -16,6 +16,8 @@
   "author": "Riven",
   "license": "ISC",
   "dependencies": {
+    "express": "^5.2.1",
+    "log4js": "^6.9.1",
     "vue": "^3.4.0",
     "vue-router": "^4.3.0"
   },

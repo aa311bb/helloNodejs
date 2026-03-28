@@ -176,7 +176,7 @@ counter.increment() // 输出: 计数器增加到: 2</code></pre>
     <div class="run-box">
       <h3>🚀 运行 Node.js 示例代码</h3>
       <p>在终端运行以下命令查看实际输出：</p>
-      <code>node examples/events-demo.js</code>
+      <code>node core-examples/events-demo.js</code>
     </div>
 
     <!-- 实用技巧 -->

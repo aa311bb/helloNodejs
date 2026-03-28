@@ -41,6 +41,21 @@ const routes = [
     path: '/fs',
     name: 'Fs',
     component: () => import('@/views/Fs.vue')
+  },
+  {
+    path: '/crypto-zlib',
+    name: 'CryptoZlib',
+    component: () => import('@/views/CryptoZlib.vue')
+  },
+  {
+    path: '/http',
+    name: 'Http',
+    component: () => import('@/views/Http.vue')
+  },
+  {
+    path: '/express',
+    name: 'Express',
+    component: () => import('@/views/Express.vue')
   }
 ]
 

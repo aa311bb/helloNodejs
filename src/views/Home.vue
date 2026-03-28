@@ -56,7 +56,10 @@ const moduleDescMap = {
   '/child-process': '创建子进程执行命令，多进程架构',
   '/events': '事件驱动架构核心，发布订阅模式',
   '/util': '实用工具函数，promisify，format，inspect',
-  '/fs': '文件系统操作，读写文件，目录管理，流式处理'
+  '/fs': '文件系统操作，读写文件，目录管理，流式处理',
+  '/crypto-zlib': '加密解密，哈希算法，数据压缩与解压',
+  '/http': 'Web服务器，反向代理，动静分离，缓存策略',
+  '/express': 'Express框架，路由，中间件，log4js日志'
 }
 
 const getModuleDesc = (path) => moduleDescMap[path] || ''

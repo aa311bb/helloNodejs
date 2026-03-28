@@ -189,7 +189,7 @@
     <div class="run-box">
       <h3>🚀 运行 Node.js 示例代码</h3>
       <p>在终端运行以下命令查看实际输出：</p>
-      <code>node examples/os-demo.js</code>
+      <code>node core-examples/os-demo.js</code>
     </div>
 
     <!-- 实用技巧 -->

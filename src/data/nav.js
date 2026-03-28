@@ -43,6 +43,26 @@ export const navData = {
           icon: '📄',
           title: 'FS 文件系统',
           path: '/fs'
+        },
+        {
+          icon: '🔐',
+          title: 'Crypto & Zlib',
+          path: '/crypto-zlib'
+        }
+      ]
+    },
+    {
+      name: '网络模块',
+      items: [
+        {
+          icon: '🌐',
+          title: 'HTTP 服务',
+          path: '/http'
+        },
+        {
+          icon: '🚂',
+          title: 'Express 框架',
+          path: '/express'
         }
       ]
     }
