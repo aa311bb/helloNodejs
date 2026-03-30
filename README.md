@@ -23,6 +23,7 @@
 |------|------|------|
 | [🌐 HTTP 服务](src/views/Http.vue) | Web服务器，反向代理，动静分离，缓存策略 | ✅ 已完成 |
 | [🚂 Express 框架](src/views/Express.vue) | Express框架，路由，中间件，log4js日志 | ✅ 已完成 |
+| [🗄️ Express+MySQL](src/views/ExpressMysql.vue) | MySQL数据库，Knex查询构建器，CRUD，连表，事务 | ✅ 已完成 |
 
 ## 📁 项目结构
 
@@ -45,6 +46,7 @@ node-learn/
 │   │   ├── CryptoZlib.vue       # Crypto & Zlib 模块
 │   │   ├── Http.vue             # HTTP 模块
 │   │   └── Express.vue          # Express 模块
+│   │   └── ExpressMysql.vue     # Express+MySQL 模块
 │   ├── router/                  # 路由配置
 │   ├── data/                    # 导航数据
 │   └── style.css                # 全局样式
@@ -59,7 +61,9 @@ node-learn/
 │   └── crypto-zlib-demo.js
 ├── network-examples/            # 网络模块示例代码
 │   ├── http-demo.js             # HTTP 服务器示例
-│   └── express-demo.js          # Express 服务器示例
+│   ├── express-demo.js          # Express 服务器示例
+│   ├── express-mysql.js         # Express+MySQL 示例
+│   └── db-config.yaml           # MySQL 数据库配置
 └── package.json
 ```
 
@@ -69,6 +73,7 @@ node-learn/
 - **路由**: Vue Router 4
 - **运行时**: Node.js 18+
 - **后端框架**: Express (网络模块)
+- **数据库**: MySQL (mysql2 + knex)
 - **日志**: log4js
 
 ## 🚀 快速开始
@@ -100,6 +105,10 @@ node core-examples/crypto-zlib-demo.js
 # 网络模块示例
 node network-examples/http-demo.js      # HTTP 服务器 (端口 3000)
 node network-examples/express-demo.js   # Express 服务器 (端口 3001)
+
+# Express + MySQL 示例（需先启动本地 MySQL）
+mysql -u root -p -e "CREATE DATABASE \`node-test\` CHARACTER SET utf8mb4;"  # 创建数据库
+node network-examples/express-mysql.js   # Express+MySQL 服务器 (端口 3002)
 ```
 
 ## 🔗 学习资源

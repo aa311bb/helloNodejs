@@ -63,6 +63,11 @@ export const navData = {
           icon: '🚂',
           title: 'Express 框架',
           path: '/express'
+        },
+        {
+          icon: '🗄️',
+          title: 'Express+MySQL',
+          path: '/express-mysql'
         }
       ]
     }

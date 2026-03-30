@@ -59,7 +59,8 @@ const moduleDescMap = {
   '/fs': '文件系统操作，读写文件，目录管理，流式处理',
   '/crypto-zlib': '加密解密，哈希算法，数据压缩与解压',
   '/http': 'Web服务器，反向代理，动静分离，缓存策略',
-  '/express': 'Express框架，路由，中间件，log4js日志'
+  '/express': 'Express框架，路由，中间件，log4js日志',
+  '/express-mysql': 'MySQL数据库，Knex查询构建器，CRUD，连表，事务'
 }
 
 const getModuleDesc = (path) => moduleDescMap[path] || ''

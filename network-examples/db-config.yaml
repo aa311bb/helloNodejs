@@ -1,0 +1,30 @@
+# ============================================
+# MySQL 数据库配置文件
+# 使用 js-yaml 包来解析这个配置文件
+# ============================================
+
+# 数据库连接配置
+database:
+  host: localhost        # 数据库地址（本地）
+  port: 3306             # 数据库端口
+  user: root             # 用户名
+  password: '441426'     # 密码（用引号包裹，防止数字被解析）
+  database: node-test    # 数据库名称
+
+# Knex.js 配置（构建查询的模块）
+knex:
+  client: mysql2         # 使用 mysql2 驱动
+  connection:
+    host: localhost
+    port: 3306
+    user: root
+    password: '441426'
+    database: node-test
+  # 连接池配置（复用连接，避免频繁创建/销毁）
+  pool:
+    min: 2               # 最小连接数
+    max: 10              # 最大连接数
+
+# Express 服务器配置
+server:
+  port: 3002             # Express 端口（避免和之前的冲突）
