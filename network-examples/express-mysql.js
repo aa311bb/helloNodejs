@@ -379,22 +379,21 @@ app.get('/api/users', async (req, res) => {
   try {
     const { page = 1, limit = 10, gender, status } = req.query
 
-    // 构建查询
-    let query = db('users').select('id', 'name', 'email', 'age', 'gender', 'status', 'created_at', 'updated_at')
-
     // .where() 条件查询（动态拼接条件）
-    if (gender) query = query.where({ gender })
-    if (status !== undefined) query = query.where({ status: parseInt(status) })
+    const whereConditions = {}
+    if (gender) whereConditions.gender = gender
+    if (status !== undefined) whereConditions.status = parseInt(status)
 
     // 获取总数（用于分页）
-    // .clone() 复制当前查询条件，避免影响原查询
-    const totalQuery = query.clone()
-    // .count('* as count') 相当于 SELECT COUNT(*) AS count
-    const [{ count }] = await totalQuery.count('* as count')
+    // 注意：count 查询不能带 select 字段，否则会和 GROUP BY 冲突
+    const [{ count }] = await db('users')
+      .where(whereConditions)
+      .count('* as count')
 
-    // 分页
-    // .orderBy() 排序，desc = 降序，asc = 升序
-    const users = await query
+    // 分页查询
+    const users = await db('users')
+      .select('id', 'name', 'email', 'age', 'gender', 'status', 'created_at', 'updated_at')
+      .where(whereConditions)
       .orderBy('id', 'desc')
       .limit(parseInt(limit))
       .offset((parseInt(page) - 1) * parseInt(limit))
@@ -587,7 +586,19 @@ app.get('/api/articles', async (req, res) => {
   try {
     const { page = 1, limit = 10, author_id, status } = req.query
 
-    let query = db('articles')
+    // 构建 where 条件
+    const whereConditions = {}
+    if (author_id) whereConditions['articles.author_id'] = author_id
+    if (status !== undefined) whereConditions['articles.status'] = parseInt(status)
+
+    // 获取总数（count 查询不带 select 字段）
+    const [{ count }] = await db('articles')
+      .join('users', 'articles.author_id', 'users.id')
+      .where(whereConditions)
+      .count('* as count')
+
+    // 分页查询
+    const articles = await db('articles')
       .select(
         'articles.id',
         'articles.title',
@@ -595,24 +606,10 @@ app.get('/api/articles', async (req, res) => {
         'articles.price',
         'articles.status',
         'articles.created_at',
-        // 连表获取作者名称
-        // .select('users.name as author_name')
-        // 相当于 SQL: SELECT users.name AS author_name
         'users.name as author_name',
       )
-      // .join() 内连接：只返回两个表中都匹配的记录
-      // 相当于 SQL: FROM articles INNER JOIN users ON articles.author_id = users.id
       .join('users', 'articles.author_id', 'users.id')
-
-    // 动态条件
-    if (author_id) query = query.where('articles.author_id', author_id)
-    if (status !== undefined) query = query.where('articles.status', parseInt(status))
-
-    // 总数
-    const [{ count }] = await query.clone().count('* as count')
-
-    // 分页 + 排序
-    const articles = await query
+      .where(whereConditions)
       .orderBy('articles.id', 'desc')
       .limit(parseInt(limit))
       .offset((parseInt(page) - 1) * parseInt(limit))

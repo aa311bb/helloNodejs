@@ -3,7 +3,19 @@
     "allow": [
       "Bash(node path-demo.js)",
       "Bash(node os-demo.js)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(node examples/events-demo.js)",
+      "Bash(node examples/util-demo.js)",
+      "Bash(node examples/fs-demo.js)",
+      "Bash(node network-examples/http-demo.js)",
+      "Bash(timeout 3 node network-examples/express-demo.js)",
+      "Bash(mysql -u root -p441426 -e \"CREATE DATABASE \\\\`node-test\\\\` CHARACTER SET utf8mb4;\")",
+      "Bash(mysql -u root -p441426 -e \"DROP DATABASE \\\\`node-test\\\\`; CREATE DATABASE \\\\`node-test\\\\` CHARACTER SET utf8mb4;\")",
+      "Bash(curl -s http://localhost:3002/api/users)",
+      "Bash(npx prisma:*)",
+      "Bash(mysql -u root -p441426 -e \"CREATE DATABASE IF NOT EXISTS \\\\`architecture-test\\\\` CHARACTER SET utf8mb4;\")",
+      "Bash(npm ls:*)"
     ]
   }
 }
