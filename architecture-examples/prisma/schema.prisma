@@ -22,9 +22,10 @@ datasource db {
   provider = "mysql"
 }
 
-// generator - 代码生成器配置
+// generator - 代码生成器配置（Prisma 7 新方式）
 generator client {
-  provider = "prisma-client-js" // 生成 JavaScript 客户端
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 // ============================================

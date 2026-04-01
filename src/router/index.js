@@ -61,6 +61,16 @@ const routes = [
     path: '/express-mysql',
     name: 'ExpressMysql',
     component: () => import('@/views/ExpressMysql.vue')
+  },
+  {
+    path: '/architecture',
+    name: 'Architecture',
+    component: () => import('@/views/Architecture.vue')
+  },
+  {
+    path: '/redis',
+    name: 'Redis',
+    component: () => import('@/views/Redis.vue')
   }
 ]
 

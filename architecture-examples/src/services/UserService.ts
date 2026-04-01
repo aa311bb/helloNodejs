@@ -23,7 +23,7 @@
 
 import 'reflect-metadata'
 import { injectable, inject } from 'inversify'
-import { PrismaClient, User } from '@prisma/client'
+import { PrismaClient, type User } from '../generated/prisma/client.js'
 import { TYPES } from '../types.js'
 
 @injectable()  // ← 必须加这个！让 Inversify 能管理这个类

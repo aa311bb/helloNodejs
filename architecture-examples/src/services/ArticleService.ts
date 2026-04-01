@@ -2,12 +2,24 @@
  * ============================================
  * ArticleService - 文章业务逻辑层
  * ============================================
- * 演示 Prisma 的关联查询（include）和事务（$transaction）
+ *
+ * 本文件演示 Prisma 的三个核心高级功能：
+ *
+ * 1. include（关联查询）- 自动 JOIN 关联表
+ *    相当于 SQL 的 JOIN，但不需要手写 ON 条件
+ *    Prisma 根据 schema 中的 @relation 自动处理
+ *
+ * 2. 嵌套 include - 多层关联查询
+ *    文章 → 作者（多对一）
+ *    文章 → 标签（多对多，通过中间表）
+ *
+ * 3. $transaction（事务）- 保证多个操作的原子性
+ *    创建文章 + 打标签，要么全成功，要么全失败
  */
 
 import 'reflect-metadata'
 import { injectable, inject } from 'inversify'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '../generated/prisma/client.js'
 import { TYPES } from '../types.js'
 
 @injectable()
@@ -28,7 +40,7 @@ export class ArticleService {
    *
    * Prisma 连表写法：
    *   prisma.article.findMany({
-   *     include: { author: true }  // 自动 JOIN，返回完整 author 对象
+   *     include: { author: true }  // 自动 JOIN users 表，返回完整 author 对象
    *   })
    *
    * Prisma 会自动处理 JOIN，你不需要手写 SQL 的 ON 条件
@@ -37,13 +49,14 @@ export class ArticleService {
   async findAll(page = 1, limit = 10) {
     const skip = (page - 1) * limit
 
+    // Promise.all 同时执行两个独立的查询，提高性能
     const [data, total] = await Promise.all([
       this.prisma.article.findMany({
         // include: 包含关联模型的数据
         // author: true → 自动 JOIN users 表，返回作者完整信息
         include: {
           author: {
-            select: { id: true, name: true, email: true },
+            select: { id: true, name: true, email: true },  // 只返回部分字段
           },
         },
         orderBy: { id: 'desc' },
@@ -63,19 +76,27 @@ export class ArticleService {
    * 获取文章详情（包含作者和标签）
    *
    * 【嵌套 include】
-   * articles → author（多对一）
-   * articles → tags → tag（多对多，通过中间表 article_tags）
+   *
+   * 数据关系：
+   *   articles → author（多对一，直接关联）
+   *   articles → tags → tag（多对多，通过中间表 article_tags）
+   *
+   * Prisma 自动处理多层 JOIN：
+   *   1. JOIN users 获取作者信息
+   *   2. JOIN article_tags 获取中间表数据
+   *   3. JOIN tags 获取标签详情
+   *
+   * 你只需要写 include 嵌套结构，SQL 全自动生成
    */
   async findById(id: number) {
     return await this.prisma.article.findUnique({
       where: { id },
       include: {
-        // 包含作者信息
+        // 第一层：包含作者信息（多对一）
         author: {
           select: { id: true, name: true, email: true },
         },
-        // 包含标签信息（通过中间表 article_tags）
-        // Prisma 自动处理多对多查询
+        // 第二层：包含标签信息（多对多，通过中间表 article_tags）
         tags: {
           include: {
             tag: true,  // 中间表 → 标签表的完整数据
@@ -87,13 +108,22 @@ export class ArticleService {
 
   /**
    * 创建文章（普通方式）
+   *
+   * Prisma vs Knex 插入对比：
+   *   Knex:   db('articles').insert({ title, content, author_id })
+   *   Prisma: prisma.article.create({ data: { title, content, authorId } })
+   *
+   * 注意字段名差异：
+   *   Knex 用数据库列名（snake_case）：author_id
+   *   Prisma 用模型属性名（camelCase）：authorId
+   *   Prisma 会自动把 authorId 映射到 author_id 列
    */
   async create(data: { title: string; content?: string; author_id: number; price?: number }) {
     return await this.prisma.article.create({
       data: {
         title: data.title,
         content: data.content || '',
-        authorId: data.author_id,
+        authorId: data.author_id,  // 接口用 snake_case，Prisma 用 camelCase
         price: data.price || 0,
       },
     })
@@ -150,6 +180,9 @@ export class ArticleService {
 
   /**
    * 更新文章
+   *
+   * 使用展开运算符(...)实现"只更新传入的字段"
+   * 如果某个字段是 undefined，就不会被包含在更新数据中
    */
   async update(id: number, data: any) {
     return await this.prisma.article.update({
@@ -165,6 +198,10 @@ export class ArticleService {
 
   /**
    * 删除文章
+   *
+   * 因为 Prisma schema 中 ArticleTag 设置了 onDelete: Cascade
+   * 删除文章时，中间表 article_tags 中的关联记录也会自动删除
+   * 不需要手动清理中间表数据
    */
   async delete(id: number) {
     return await this.prisma.article.delete({ where: { id } })
