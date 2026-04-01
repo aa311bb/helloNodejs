@@ -22,4 +22,9 @@ npm-debug.log*
 .env
 .env.local
 
+# Claude Code
+.claude/
+
+# Prisma generated
 /src/generated/prisma
+architecture-examples/src/generated/prisma/

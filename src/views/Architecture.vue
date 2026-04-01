@@ -187,7 +187,7 @@ class UserService {
   constructor() {
     this.prisma = new PrismaClient({
       host: 'localhost',
-      password: '441426'  // 密码写死在这里
+      password: 'your_password'  // 密码写死在这里
     })
   }
 }

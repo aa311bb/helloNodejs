@@ -59,7 +59,7 @@ export async function createPrismaClient() {
     host: 'localhost',       // 数据库地址
     port: 3306,              // MySQL 默认端口
     user: 'root',            // 数据库用户名
-    password: '441426',      // 数据库密码
+    password: process.env.DB_PASSWORD || '',  // 数据库密码（从 .env 读取）
     database: 'architecture-test',  // 数据库名称
     connectionLimit: 5,      // 连接池最大连接数
   })
